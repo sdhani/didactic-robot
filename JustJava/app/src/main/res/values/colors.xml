@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Material Design recommends a 500 color for the
+    primary color of an app -->
+    <color name="colorPrimary">#795548</color>
+
+    <!--Material Design reccomends a 700 color of the same
+    color group for PrimaryDark color of the app -->
+    <color name="colorPrimaryDark">#5D4037</color>
+
+    <color name="colorAccent">#FF5722</color>
+</resources>

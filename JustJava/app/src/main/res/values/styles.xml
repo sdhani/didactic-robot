@@ -1,0 +1,29 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- App branding color for the app bar -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <!-- Darker variant for the status bar and contextual app bars -->
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <!-- Theme UI controls like checkboxes and text fields -->
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!-- Style for header text on the Order Form -->
+    <style name="HeaderTextStyle">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:layout_margin">16dp</item>
+    </style>
+
+    <!-- Style on Order Icon form-->
+    <style name="IconStyle">
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginRight">72dp</item>
+    </style>
+
+</resources>

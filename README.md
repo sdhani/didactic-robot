@@ -1,2 +1,2 @@
 # didactic-robot
-Summer Android App Development Project
+Summer Android Studio App Development Exploration
