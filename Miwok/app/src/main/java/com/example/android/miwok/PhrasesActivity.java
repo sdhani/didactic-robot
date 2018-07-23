@@ -1,5 +1,6 @@
 package com.example.android.miwok;
 
+import android.content.res.AssetManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,9 +11,15 @@ import java.util.ArrayList;
 public class PhrasesActivity extends AppCompatActivity {
 
     @Override
+    public AssetManager getAssets() {
+        return super.getAssets();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.word_list);
+
 
         ArrayList<Word> words = new ArrayList<Word>();
 
@@ -39,7 +46,7 @@ public class PhrasesActivity extends AppCompatActivity {
          * Could also be connected to a GridView object.
          * */
         WordAdapter adapter =
-                new WordAdapter(this, words);
+                new WordAdapter(this, words, R.color.category_phrases);
 
 
         /**
