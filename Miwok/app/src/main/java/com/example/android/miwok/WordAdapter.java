@@ -1,6 +1,8 @@
 package com.example.android.miwok;
 
 import android.app.Activity;
+import android.content.Context;
+import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -72,6 +74,8 @@ public class WordAdapter extends ArrayAdapter<Word>{
         int color = ContextCompat.getColor(getContext(), mColorResourceId);
         //Set the background color of the text container View
         textContainer.setBackgroundColor(color);
+
+        
 
         return listItemView;
     }

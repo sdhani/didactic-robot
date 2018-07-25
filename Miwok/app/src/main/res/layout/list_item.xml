@@ -42,4 +42,9 @@
             android:textColor="#FFFFFF"
             android:textSize="18sp" />
     </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        />
 </LinearLayout>
