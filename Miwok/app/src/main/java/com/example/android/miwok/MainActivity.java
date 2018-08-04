@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         TextView numbers = findViewById(R.id.numbers);
-
         // Set a click listener on that View
         numbers.setOnClickListener(new View.OnClickListener() {
             // The code in this method will be executed when the numbers View is clicked on.
@@ -41,16 +40,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //Create new intent to open the {@link NumbersActivity}
                 Intent numbersIntent = new Intent(MainActivity.this, NumbersActivity.class);
-
                 //Start the new activity
                 startActivity(numbersIntent);
-
             }
         });
 
-
         TextView family = findViewById(R.id.family);
-
         // Set a click listener on that View
         family.setOnClickListener(new View.OnClickListener() {
             // The code in this method will be executed when the numbers View is clicked on.
@@ -58,16 +53,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //Create new intent to open the {@link NumbersActivity}
                 Intent familyIntent = new Intent(MainActivity.this, FamilyActivity.class);
-
                 //Start the new activity
                 startActivity(familyIntent);
-
             }
         });
 
 
         TextView colors = findViewById(R.id.colors);
-
         // Set a click listener on that View
         colors.setOnClickListener(new View.OnClickListener() {
             // The code in this method will be executed when the numbers View is clicked on.
@@ -75,16 +67,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //Create new intent to open the {@link NumbersActivity}
                 Intent colorsIntent = new Intent(MainActivity.this, ColorsActivity.class);
-
                 //Start the new activity
                 startActivity(colorsIntent);
-
             }
         });
 
 
-        final TextView phrases = findViewById(R.id.phrases);
-
+        TextView phrases = findViewById(R.id.phrases);
         // Set a click listener on that View
         phrases.setOnClickListener(new View.OnClickListener() {
             // The code in this method will be executed when the numbers View is clicked on.
@@ -92,10 +81,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //Create new intent to open the {@link NumbersActivity}
                 Intent phrasesIntent = new Intent(MainActivity.this, PhrasesActivity.class);
-
                 //Start the new activity
                 startActivity(phrasesIntent);
-
             }
         });
     }
