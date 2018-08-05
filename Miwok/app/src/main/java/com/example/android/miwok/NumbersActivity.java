@@ -20,12 +20,14 @@ public class NumbersActivity extends AppCompatActivity {
             releaseMediaPlayer();
         }
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.word_list);
 
         final ArrayList<Word> words = new ArrayList<Word>();
+
         words.add(new Word("one", "lutti", R.drawable.number_one, R.raw.number_one));
         words.add(new Word("two", "otiiko", R.drawable.number_two, R.raw.number_two));
         words.add(new Word("three", "tolookosu", R.drawable.number_three, R.raw.number_three));
@@ -51,10 +53,6 @@ public class NumbersActivity extends AppCompatActivity {
         /*Connects/sets the ArryAdapter to the List*/
         listView.setAdapter(adapter);
 
-        /**
-         * Clean up the media player by releasing its resources.
-         */
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
@@ -69,6 +67,16 @@ public class NumbersActivity extends AppCompatActivity {
         });
     }
 
+    /*Releases media resource when app stops*/
+    @Override
+    protected void onStop() {
+        super.onStop();
+        releaseMediaPlayer();
+    }
+
+    /**
+     * Clean up the media player by releasing its resources.
+     */
     private final void releaseMediaPlayer(){
         // If the media player is not null, then it may be currently playing a sound.
         if (mMediaPlayer != null) {
@@ -82,6 +90,8 @@ public class NumbersActivity extends AppCompatActivity {
             mMediaPlayer = null;
         }
     }
+
+
 }
 
 
