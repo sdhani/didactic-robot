@@ -1,6 +1,7 @@
 package com.example.android.miwok;
 
 import android.app.Activity;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,11 +15,37 @@ import java.util.ArrayList;
 public class FamilyActivity extends AppCompatActivity {
     private MediaPlayer mMediaPlayer;
 
+    private AudioManager mAudioManager;
+
     private MediaPlayer.OnCompletionListener mCompletionListener = new MediaPlayer.OnCompletionListener() {
         @Override
         public void onCompletion(MediaPlayer mediaPlayer) {
-            // Now that the sound file has finished playing, release the media player resources.
+            // Release the media player resources, when sound has finished playing.
             releaseMediaPlayer();
+        }
+    };
+
+    /**
+     * Audio Manager listener gets notified whenever the audio focus changes while the app
+     * is running.
+     */
+    private AudioManager.OnAudioFocusChangeListener mOnAudioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
+        @Override
+        public void onAudioFocusChange(int focusChange) {
+            if (focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT ||
+                    focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK) {
+                // If we've lost audio focus for a short amount of time or our app is
+                // allowed to continue playing the sound but at a lower volume. We'll
+                // pause playback and reset player to the start of the file.
+                mMediaPlayer.pause();
+                mMediaPlayer.seekTo(0);
+            } else if (focusChange == AudioManager.AUDIOFOCUS_GAIN) {
+                // If we have regained focus and can resume playback, start file
+                mMediaPlayer.start();
+            } else if (focusChange == AudioManager.AUDIOFOCUS_LOSS) {
+                // If we've lost audio focus stop playback and clean up resources
+                releaseMediaPlayer();
+            }
         }
     };
 
@@ -40,20 +67,16 @@ public class FamilyActivity extends AppCompatActivity {
         words.add(new Word("grandmother", "ama", R.drawable.family_grandmother, R.raw.family_grandmother));
         words.add(new Word("grandfather", "paapa", R.drawable.family_grandfather, R.raw.family_grandfather));
 
-
         Log.v("FamilyActivity" , "Words " + words.get(5));
 
-        //ListView + Array Adapter = Recycler View
-
-
         /**
+         * ListView + Array Adapter = Recycler View
          * ArrayAdapter handles making the List or Array or ArrayList
          * into a list item view.
          * Could also be connected to a GridView object.
          * */
         WordAdapter adapter =
                 new WordAdapter(this, words, R.color.category_family);
-
 
         /**
          *The ListView is a container for the Array Adapter and maintains
@@ -72,11 +95,15 @@ public class FamilyActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Log.v("View Numbers Activity", "" + position);
                 releaseMediaPlayer();
-
-                mMediaPlayer = MediaPlayer.create(FamilyActivity.this, words.get(position).getMediaResourceId());
-                mMediaPlayer.start();
-
-                mMediaPlayer.setOnCompletionListener(mCompletionListener);
+                if (mMediaPlayer != null) {
+                    int result = mAudioManager.requestAudioFocus(mOnAudioFocusChangeListener,
+                            AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
+                    if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+                        mMediaPlayer = MediaPlayer.create(FamilyActivity.this, words.get(position).getMediaResourceId());
+                        mMediaPlayer.start();
+                        mMediaPlayer.setOnCompletionListener(mCompletionListener);
+                    }
+                }
             }
         });
     }
@@ -99,6 +126,11 @@ public class FamilyActivity extends AppCompatActivity {
             // setting the media player to null is an easy way to tell that the media player
             // is not configured to play an audio file at the moment.
             mMediaPlayer = null;
+
+            // Abandons audio focus; unregisters the AudioFocusChangeListener so we don't
+            // get anymore callbacks.
+            mAudioManager.abandonAudioFocus(mOnAudioFocusChangeListener);
+
         }
     }
 }
